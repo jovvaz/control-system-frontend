@@ -1,16 +1,72 @@
-# React + Vite
+# 🎨 Control System (Frontend UI)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este é o repositório do **Frontend (Interface do Usuário)** do projeto Control System, construído com React.
 
-Currently, two official plugins are available:
+Esta aplicação consome a [API do Backend (Spring Boot)](https://github.com/jovvaz/Control-System) para fornecer uma interface gráfica moderna e reativa para o gerenciamento de estoque e produção.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+### 🔗 Backend (API)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+O backend (API) deste projeto foi desenvolvido em Spring Boot e está num repositório separado. A API é responsável por toda a lógica de negócio, validações de estoque e persistência de dados.
 
-## Expanding the ESLint configuration
+**➡️ [Acesse o Repositório do Backend aqui](https://github.com/jovvaz/Control-System)**
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+---
+
+## 🌟 Funcionalidades da Interface
+
+Esta aplicação React foi estruturada usando `react-router-dom` para criar uma experiência de "Single Page Application" (SPA) com múltiplas "guias":
+
+* **Navegação por Guias:** A interface é dividida em 4 seções principais para um fluxo de trabalho claro:
+    1.  Lista de Produtos
+    2.  Cadastrar Produto
+    3.  Dar Entrada (Compra)
+    4.  Executar Produção
+
+* **Lista de Produtos (Dashboard):**
+    * Exibe **duas tabelas separadas**: uma para "Matérias-Primas" e outra para "Produtos Acabados".
+    * A lista é atualizada automaticamente ao visitar a página, garantindo que os dados (como o estoque) estejam sempre corretos.
+    * **Funcionalidade de Deletar:** Cada item possui um botão "Deletar" que chama a API `DELETE`. A interface exibe mensagens de erro claras vindas do backend (ex: "Não é possível deletar: Matéria-Prima em uso...").
+
+* **Formulário de Cadastro Inteligente:**
+    * Um único formulário que se **adapta dinamicamente**.
+    * Se o "Tipo" for `MATERIA_PRIMA`, exibe um formulário simples.
+    * Se o "Tipo" for `PRODUTO_ACABADO`, revela campos adicionais para construir a **Ficha Técnica (Receita)**, permitindo ao usuário adicionar múltiplos componentes e suas quantidades.
+    * **Navegação Automática:** Após o cadastro bem-sucedido, o usuário é automaticamente redirecionado para a "Lista de Produtos" para ver o seu novo item.
+
+* **Formulários de Ação (Entrada e Produção):**
+    * Formulários dedicados para "Dar Entrada no Estoque" e "Executar Ordem de Produção".
+    * **Feedback ao Usuário:** Estes formulários exibem mensagens de sucesso (verdes) ou erro (vermelhas) em tempo real, comunicando diretamente o resultado das validações da API (ex: "Estoque insuficiente para...").
+
+---
+
+## 🛠️ Tecnologias (Frontend)
+
+* **React 18**
+* **Vite:** Para um ambiente de desenvolvimento rápido (Hot Reload) e build otimizado.
+* **React Router (v6):** Para roteamento do lado do cliente (as "guias").
+* **Axios:** Para fazer as chamadas HTTP (requisições) para a API do Backend.
+* **CSS Moderno:** Estilização "sofisticada" com tema escuro, layout flexbox e componentes reutilizáveis.
+
+---
+
+## 🚀 Como Executar (Localmente)
+
+**Requisitos:**
+* [Node.js](https://nodejs.org/) (versão LTS recomendada)
+* O **Backend (Control System)** deve estar em execução em `http://localhost:8080`.
+
+**Passos:**
+1.  Clone este repositório: `git clone https://github.com/jovvaz/control-system-frontend.git`
+2.  Navegue até a pasta: `cd control-system-frontend`
+3.  Instale todas as dependências:
+    ```bash
+    npm install
+    ```
+4.  Execute o servidor de desenvolvimento:
+    ```bash
+    npm run dev
+    ```
+5.  Abra `http://localhost:5173` (ou a porta indicada) no seu navegador.
